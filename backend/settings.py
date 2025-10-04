@@ -9,28 +9,54 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ---------- CORE ----------
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config("DEBUG", default=False, cast=bool)
-ENVIRONMENT = config("ENV", default="development")
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost").split(",")
 # ---------- DATABASE ----------
 DATABASE_URL = os.environ.get("DATABASE_URL")
-if DATABASE_URL:
-    DATABASES = {"default": dj_database_url.parse(DATABASE_URL, conn_max_age=600)}
-else:
+# if DATABASE_URL:
+#     DATABASES = {"default": dj_database_url.parse(DATABASE_URL, conn_max_age=600)}
+# else:
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.postgresql",
+#             "NAME": config("DB_NAME"),
+#             "USER": config("DB_USER"),
+#             "PASSWORD": config("DB_PASSWORD"),
+#             "HOST": config("DB_HOST", default="localhost"),
+#             "PORT": config("DB_PORT", default="5432"),
+#         }
+#     }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'photogallery',          # your database name
+#         'USER': 'galleryuser',           # your database user
+#         'PASSWORD': 'galleryuser',
+#         'HOST': 'localhost',             # or 127.0.0.1
+#         'PORT': '5432',                  # default PostgreSQL port
+#     }
+# }
+
+import dj_database_url
+from decouple import config
+
+DEBUG = config("DEBUG", default=True, cast=bool)
+
+if DEBUG:  
+    # Local development
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": config("DB_NAME"),
-            "USER": config("DB_USER"),
-            "PASSWORD": config("DB_PASSWORD"),
-            "HOST": config("DB_HOST", default="localhost"),
-            "PORT": config("DB_PORT", default="5432"),
-        }
+        "default": dj_database_url.config()
+            
+    }
+else:  
+    # Production (Render, Heroku, etc.)
+    DATABASES = {
+        "default": dj_database_url.parse(config("DATABASE_URL"))
     }
 
 
 # -------------MEDIA-------------
-ENVIRONMENT = config("DJANGO_ENV", default="development")
-if ENVIRONMENT == "production":
+if not DEBUG:
     # ✅ Use AWS S3 for production
     AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
@@ -151,12 +177,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 
 # Password validation
@@ -194,9 +220,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "static",   # your project-level static folder
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static",   # your project-level static folder
+# ]
 STATIC_ROOT = BASE_DIR / "staticfiles"  # for collectstatic (production)
 
 # Default primary key field type
