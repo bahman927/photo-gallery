@@ -1,7 +1,7 @@
 // utils/api.js
 import axios from "axios";
-
-const BASE_URL = "http://127.0.0.1:8000";
+import apiUrl from "../config"
+// const BASE_URL = "http://127.0.0.1:8000";
 
 // Refresh token helper
 async function refreshAccessToken() {
@@ -9,7 +9,8 @@ async function refreshAccessToken() {
   if (!refreshToken) throw new Error("No refresh token found");
 
   try {
-    const res = await axios.post(`${BASE_URL}/token/refresh/`, {
+    // const res = await axios.post(`${BASE_URL}/token/refresh/`, {
+    const res = await axios.post(`${apiUrl}/token/refresh/`, {
       refresh: refreshToken,
     });
 
@@ -39,7 +40,7 @@ export async function apiRequest(endpoint, options = {}) {
   try {
     const response = await axios({
       method: options.method || "GET",
-      url: `${BASE_URL}${endpoint}`,
+      url: `${apiUrl}${endpoint}`,
       data: options.body,
       headers,
     });
@@ -57,7 +58,7 @@ export async function apiRequest(endpoint, options = {}) {
 
         const retryResponse = await axios({
           method: options.method || "GET",
-          url: `${BASE_URL}${endpoint}`,
+          url: `${apiUrl}${endpoint}`,
           data: options.body,
           headers,
         });
@@ -75,7 +76,7 @@ export async function apiRequest(endpoint, options = {}) {
 
 export async function getPhotos() {
   try {
-    const url = `${BASE_URL}/photos/`;
+    const url = `${apiUrl}/photos/`;
     const response = await axios.get(url);
    // console.log("response : ", response)
     return response.data;
