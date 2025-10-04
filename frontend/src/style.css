@@ -9,8 +9,8 @@
         
  .animate-wave {
             background: linear-gradient(90deg, 
-                #87e5ca, #fad0c4, #fad0c4, #a18cd1, 
-                #fbc2eb, #dba5a7, #fadfd7, #534573);
+                #0df3b2, #fad0c4, #fad0c4, #a18cd1, 
+                #fbc2eb, #dba5a7, #fadfd7, #402c6d);
             background-size: 800% 800%;
             -webkit-background-clip: text;
             background-clip: text;
@@ -224,4 +224,18 @@
 
 .nav-buttons button:hover {
   background-color: #bbb;
+}
+
+.item {
+  transition: transform 0.25s ease, border 0.25s ease;
+}
+
+.item:hover {
+  transform: scale(1.1); /* slightly enlarge on hover */
+}
+
+/* Active thumbnail always appears larger */
+.item.active {
+  transform: scale(1.15);
+  border: 3px solid #007bff;
 }
