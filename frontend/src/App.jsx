@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { CategoryProvider } from "./context/CategoryContext";
 import Header from "./components/Header";
-import Header2 from "./components/Header2";
 import Footer from "./components/Footer";
 import Login  from "./pages/Login";
 import AboutMe  from "./pages/AboutMe";

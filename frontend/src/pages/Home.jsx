@@ -1,17 +1,17 @@
 
-import React from "react";
-import PhotoGallery from "../components/PhotoGallery";
+// import React from "react";
+// import PhotoGallery from "../components/PhotoGallery";
 
-export default function Home() {
-  return (
-    <div className="p-4">
-      <h1 className="mb-6 text-2xl font-bold text-gray-800">
-        Welcome to Hannah PhotoGallery
-      </h1>
-      <PhotoGallery />
-    </div>
-  );
-}
+// export default function Home() {
+//   return (
+//     <div className="p-4">
+//       <h1 className="mb-6 text-2xl font-bold text-gray-800">
+//         Welcome to Hannah PhotoGallery
+//       </h1>
+//       <PhotoGallery />
+//     </div>
+//   );
+// }
 
 
 // // src/pages/Home.jsx
