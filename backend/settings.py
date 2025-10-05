@@ -238,9 +238,9 @@ STATIC_ROOT = BASE_DIR / "staticfiles"  # for collectstatic (production)
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ALLOW_ALL_ORIGINS = True  # For development only
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",   # React dev
-    "http://localhost:5174",   # React dev
-    "https://photo-gallery-c9s4.onrender.com", # Example for production
+    # "http://localhost:5173",   # React dev
+    # "http://localhost:5174",   # React dev
+    "http://localhost:3000",   # React dev
     "https://photo-gallery-frontend-iyvv.onrender.com",
 ]
 CORS_ALLOW_CREDENTIALS = True
