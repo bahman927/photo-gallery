@@ -9,7 +9,6 @@ const PhotoCarousel = () => {
   const [mainPhoto, setMainPhoto] = useState(
     photos && photos.length > 0 ? photos[0] : null
   );
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const slideRef = useRef();
 
@@ -48,14 +47,24 @@ const PhotoCarousel = () => {
  <div  className="gallery">
       {/* Main Display */}
    <div className="main-display">
-      {photos.length > 0 && (
+        {currentPhoto ? (
+        <img
+          src={currentPhoto.image}
+          alt={currentPhoto.title || "Selected"}
+          className="main-image"
+        />
+      ) : (
+        <p>No photo available</p>
+      )}
+
+      {/* {photos.length > 0 && (
         <img
           src={currentPhoto.image}  
           alt="Selected"
           className="main-image"
         />
       )}
-    {!currentPhoto && <p>No photo available</p>}
+    {!currentPhoto && <p>No photo available</p>} */}
   </div>
 
       {/* Thumbnails */}
@@ -63,9 +72,7 @@ const PhotoCarousel = () => {
        ref={slideRef} 
        style={{ display: "flex", 
        justifyContent:"center",
-      //  marginTop:   "1px",   gap: "5px",   }}>
-       marginTop:   "1px", 
-       gap: "5px",   }}>
+       marginTop:   "1px",  gap: "5px",   }}>
        {Array.isArray(photos) &&
           photos.map((photo, index) => (
             <div
@@ -84,6 +91,8 @@ const PhotoCarousel = () => {
                   index === currentIndex
                     ? "3px solid #007bff"
                     : "2px solid #ccc",
+                transition: "transform 0.2s",
+                transform: index === currentIndex ? "scale(1.1)" : "scale(1)",   
               }}
               onClick={() => setCurrentIndex(index)}
             ></div>
