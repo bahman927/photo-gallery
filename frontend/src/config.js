@@ -1,17 +1,10 @@
 let apiUrl;
 
-// check the environment
-if (process.env.NODE_ENV === "production") {
-  // in production 
-  apiUrl = process.env.REACT_APP_API_URL;
+if (import.meta.env.PROD) {
+  apiUrl = import.meta.env.VITE_API_URL || "https://photo-gallery-c9s4.onrender.com";
 } else {
-  // local development
-  apiUrl = "http://localhost:8000";
+  apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8000";
 }
 
+console.log("Using API URL:", apiUrl);
 export default apiUrl;
-
-
-//  process.env.NODE_ENV is automatically set to:
-//     "development" when running npm start or npm run dev
-//     "production" when you build (npm run build on Render)

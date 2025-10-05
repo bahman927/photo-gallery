@@ -3,8 +3,7 @@ import { useCategory } from "../context/CategoryContext";
 import { useNavigate, Link } from "react-router-dom";
 import { apiRequest } from "../utils/api";
 import "../style.css";
-import apiUrl from "../config";
-console.log("Using API URL:", apiUrl);
+ 
 
 export default function Header() {
   
