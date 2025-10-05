@@ -8,7 +8,8 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${apiUrl}/login/`, {
+      // const response = await fetch(`${apiUrl}/login/`, {
+      const response = await fetch(`${apiUrl}/token/`, {
         method: "POST",
         headers: { "Content-Type": "application/json", },
         body: JSON.stringify({ username, password }),
