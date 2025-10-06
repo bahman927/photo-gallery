@@ -20,6 +20,17 @@ class PhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
         fields = "__all__"
+     
+    def get_image(self, obj):
+        try:
+            if obj.image:
+                signed_url = get_signed_url(obj.image.name)
+                print("Generated signed URL:", signed_url)
+                return signed_url
+        except Exception as e:
+            print("⚠️ S3 ERROR in get_image():", e)
+            return None
+        return None   
 
     # def get_image(self, obj):
     #     """
