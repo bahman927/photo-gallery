@@ -21,30 +21,30 @@ class PhotoSerializer(serializers.ModelSerializer):
         model = Photo
         fields = "__all__"
 
-    def get_image(self, obj):
-        """
-        Return either a public image URL or a temporary signed URL
-        for private S3 images.
-        """
-        request = self.context.get("request")
+    # def get_image(self, obj):
+    #     """
+    #     Return either a public image URL or a temporary signed URL
+    #     for private S3 images.
+    #     """
+    #     request = self.context.get("request")
 
-        if not obj.image:
-            return None
+    #     if not obj.image:
+    #         return None
 
-        # Direct URL (already absolute)
-        image_url = obj.image.url
+    #     # Direct URL (already absolute)
+    #     image_url = obj.image.url
 
-        # Case 1: already public (e.g. starts with 'http')
-        if image_url.startswith("http"):
-            return image_url
+    #     # Case 1: already public (e.g. starts with 'http')
+    #     if image_url.startswith("http"):
+    #         return image_url
 
-        # Case 2: local or private S3 path (needs signing)
-        try:
-            # get the S3 key (path relative to the bucket)
-            key = image_url.lstrip("/")  # e.g., "photos/Hana-img28.JPG"
-            signed_url = get_signed_url(key)
-            return signed_url
-        except Exception as e:
-            # fallback — avoid breaking serialization
-            print(f"Error generating signed URL: {e}")
-            return request.build_absolute_uri(image_url)
+    #     # Case 2: local or private S3 path (needs signing)
+    #     try:
+    #         # get the S3 key (path relative to the bucket)
+    #         key = image_url.lstrip("/")  # e.g., "photos/Hana-img28.JPG"
+    #         signed_url = get_signed_url(key)
+    #         return signed_url
+    #     except Exception as e:
+    #         # fallback — avoid breaking serialization
+    #         print(f"Error generating signed URL: {e}")
+    #         return request.build_absolute_uri(image_url)
