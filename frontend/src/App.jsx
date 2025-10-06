@@ -18,8 +18,8 @@ const App = () => {
         <Header /> 
         <div className="relative flex-grow h-full bg-gray-200">
           <Routes>
-            <Route path="/"     element={<Navigate to="/home" replace />} />
-            <Route path="/home" element={<Carousel />} />
+            {/* <Route path="/"     element={<Navigate to="/home" replace />} /> */}
+            <Route path="/" element={<Carousel />} />
             <Route path="/login" element={<Login />} />
             <Route path="/about" element={<AboutMe />} /> 
           </Routes>

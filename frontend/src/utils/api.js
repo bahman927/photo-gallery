@@ -1,7 +1,6 @@
 // utils/api.js
 import axios from "axios";
 import apiUrl from "../config"
-// const BASE_URL = "http://127.0.0.1:8000";
 
 // Refresh token helper
 async function refreshAccessToken() {
@@ -30,7 +29,7 @@ export async function apiRequest(endpoint, options = {}) {
   let token = localStorage.getItem("access_Token");
   const isFormData = options.body instanceof FormData;
 
-  console.log('options:', options, "options.headers :", options.headers)
+  // console.log('options:', options, "options.headers :", options.headers)
   let headers = {
     ...(options.headers || {}),
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -43,6 +42,7 @@ export async function apiRequest(endpoint, options = {}) {
       url: `${apiUrl}${endpoint}`,
       data: options.body,
       headers,
+      withCredentials: false,
     });
 
     return response.data;
@@ -61,6 +61,7 @@ export async function apiRequest(endpoint, options = {}) {
           url: `${apiUrl}${endpoint}`,
           data: options.body,
           headers,
+          withCredentials: false,
         });
 
         return retryResponse.data;
