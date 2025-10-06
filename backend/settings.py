@@ -12,7 +12,8 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 # ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost").split(",")
 
 ALLOWED_HOSTS = [
-    "photo-gallery-c9s4.onrender.com",  # your Render URL
+    "photo-gallery-c9s4.onrender.com", 
+     "photo-gallery-frontend-iyvv.onrender.com", # your Render URL
     "localhost",                        # optional for local dev
     "127.0.0.1",
 ]
@@ -237,10 +238,13 @@ STATIC_ROOT = BASE_DIR / "staticfiles"  # for collectstatic (production)
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ALLOW_ALL_ORIGINS = True  # For development only
 CORS_ALLOWED_ORIGINS = [
-    # "http://localhost:5173",   # React dev
-    # "http://localhost:5174",   # React dev
-    "http://localhost:3000",   # React dev
+   
     "https://photo-gallery-frontend-iyvv.onrender.com",
 ]
 CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://photo-gallery-c9s4.onrender.com",
+    "https://photo-gallery-frontend-iyvv.onrender.com",
+]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
