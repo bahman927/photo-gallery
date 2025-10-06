@@ -13,5 +13,5 @@ def get_signed_url(key):
     return s3.generate_presigned_url(
         "get_object",
         Params={"Bucket": settings.AWS_STORAGE_BUCKET_NAME, "Key": key},
-        ExpiresIn=3600  # URL valid for 1 hour
+        # ExpiresIn=3600  # URL valid for 1 hour
     )
