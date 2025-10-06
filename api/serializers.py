@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Photo, Category
-from .utils.s3_utils import get_signed_url
+from backend.utils.s3_utils import get_signed_url
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
