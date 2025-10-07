@@ -61,7 +61,7 @@ else:
     DATABASES = {
         "default": dj_database_url.parse(config("DATABASE_URL"))
     }
-
+AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
 SECRET_KEY = config("SECRET_KEY")
 AWS_S3_REGION_NAME = config("AWS_S3_REGION_NAME", default="us-east-2")
 # -------------MEDIA-------------
