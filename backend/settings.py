@@ -50,9 +50,6 @@ else:
     DATABASES = {
         "default": dj_database_url.parse(config("DATABASE_URL"))
     }
-AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
-SECRET_KEY = config("SECRET_KEY")
-AWS_S3_REGION_NAME = config("AWS_S3_REGION_NAME", default="us-east-2")
 # -------------MEDIA-------------
 # --- Django settings ---
 DEBUG = os.environ.get("DEBUG", "False") == "True"
@@ -190,19 +187,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+ 
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -220,9 +205,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -232,17 +214,14 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
+ 
 
 STATIC_URL = '/static/'
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static",   # your project-level static folder
 # ]
 STATIC_ROOT = BASE_DIR / "staticfiles"  # for collectstatic (production)
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+ 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ALLOW_ALL_ORIGINS = False  # For development only
 CORS_ALLOWED_ORIGINS = [

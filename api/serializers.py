@@ -20,42 +20,14 @@ class PhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
         fields = "__all__"
-     
+
     def get_image(self, obj):
-        try:
-            if obj.image:
-                signed_url = get_signed_url(obj.image.name)
-                print("Generated signed URL:", signed_url)
-                return signed_url
-        except Exception as e:
-            print("⚠️ S3 ERROR in get_image():", e)
-            return None
-        return None   
+        """
+        Returns the full S3 URL of the image.
+        If no image exists, return None.
+        """
+        if obj.image:
+            return obj.image.url  # django-storages builds full S3 URL automatically
+        return None
 
-    # def get_image(self, obj):
-    #     """
-    #     Return either a public image URL or a temporary signed URL
-    #     for private S3 images.
-    #     """
-    #     request = self.context.get("request")
-
-    #     if not obj.image:
-    #         return None
-
-    #     # Direct URL (already absolute)
-    #     image_url = obj.image.url
-
-    #     # Case 1: already public (e.g. starts with 'http')
-    #     if image_url.startswith("http"):
-    #         return image_url
-
-    #     # Case 2: local or private S3 path (needs signing)
-    #     try:
-    #         # get the S3 key (path relative to the bucket)
-    #         key = image_url.lstrip("/")  # e.g., "photos/Hana-img28.JPG"
-    #         signed_url = get_signed_url(key)
-    #         return signed_url
-    #     except Exception as e:
-    #         # fallback — avoid breaking serialization
-    #         print(f"Error generating signed URL: {e}")
-    #         return request.build_absolute_uri(image_url)
+     
