@@ -8,10 +8,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ---------- CORE ----------
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config("DEBUG", default=False, cast=bool)
-ENV_PATH = BASE_DIR / ".env"
-from dotenv import load_dotenv
-if ENV_PATH.exists():
-    load_dotenv(dotenv_path=ENV_PATH)
+# ENV_PATH = BASE_DIR / ".env"
+# from dotenv import load_dotenv
+# if ENV_PATH.exists():
+#     load_dotenv(dotenv_path=ENV_PATH)
 
 ALLOWED_HOSTS = [
     "photo-gallery-c9s4.onrender.com", 
