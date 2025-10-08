@@ -5,46 +5,36 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: don't run with debug turned on in production!
 # ---------- CORE ----------
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config("DEBUG", default=False, cast=bool)
-# ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost").split(",")
+ENV_PATH = BASE_DIR / ".env"
+from dotenv import load_dotenv
+if ENV_PATH.exists():
+    load_dotenv(dotenv_path=ENV_PATH)
 
 ALLOWED_HOSTS = [
     "photo-gallery-c9s4.onrender.com", 
-     "photo-gallery-frontend-iyvv.onrender.com", # your Render URL
-    "localhost",                        # optional for local dev
+    "photo-gallery-frontend-iyvv.onrender.com", 
+    "localhost",                        
     "127.0.0.1",
 ]
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', default='5432'),
+    }
+}
+
+
 # ---------- DATABASE ----------
 DATABASE_URL = os.environ.get("DATABASE_URL")
-# if DATABASE_URL:
-#     DATABASES = {"default": dj_database_url.parse(DATABASE_URL, conn_max_age=600)}
-# else:
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.postgresql",
-#             "NAME": config("DB_NAME"),
-#             "USER": config("DB_USER"),
-#             "PASSWORD": config("DB_PASSWORD"),
-#             "HOST": config("DB_HOST", default="localhost"),
-#             "PORT": config("DB_PORT", default="5432"),
-#         }
-#     }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'photogallery',          # your database name
-#         'USER': 'galleryuser',           # your database user
-#         'PASSWORD': 'galleryuser',
-#         'HOST': 'localhost',             # or 127.0.0.1
-#         'PORT': '5432',                  # default PostgreSQL port
-#     }
-# }
-
+ 
 import dj_database_url
 from decouple import config
 
@@ -57,7 +47,6 @@ if DEBUG:
             
     }
 else:  
-    # Production (Render, Heroku, etc.)
     DATABASES = {
         "default": dj_database_url.parse(config("DATABASE_URL"))
     }
@@ -65,21 +54,40 @@ AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
 SECRET_KEY = config("SECRET_KEY")
 AWS_S3_REGION_NAME = config("AWS_S3_REGION_NAME", default="us-east-2")
 # -------------MEDIA-------------
-if not DEBUG:
-    AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
-    AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
-    AWS_S3_REGION_NAME = config("AWS_S3_REGION_NAME", default="us-east-2")
-    AWS_QUERYSTRING_AUTH = False  # signed URLs for private access
-    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-    AWS_S3_SIGNATURE_VERSION = "s3v4"
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-    MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
+# --- Django settings ---
+DEBUG = os.environ.get("DEBUG", "False") == "True"
+SECRET_KEY = os.environ.get("SECRET_KEY", "fallback-secret-key")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 
-else:
-    # ✅ Local dev storage
-    MEDIA_URL = "/media/"
-    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# --- AWS S3 storage ---
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME", "us-east-1")
+AWS_S3_SIGNATURE_VERSION = "s3v4"
+AWS_DEFAULT_ACL = None
+AWS_S3_FILE_OVERWRITE = False
+AWS_QUERYSTRING_AUTH = False  # public URLs
+
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/"
+
+# if not DEBUG:
+#     AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
+#     AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
+#     AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
+#     AWS_S3_REGION_NAME = config("AWS_S3_REGION_NAME", default="us-east-2")
+#     AWS_QUERYSTRING_AUTH = False  # signed URLs for private access
+#     AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+#     AWS_S3_SIGNATURE_VERSION = "s3v4"
+#     DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+#     MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
+#     AWS_DEFAULT_ACL = None
+
+# else:
+#     # ✅ Local dev storage
+#     MEDIA_URL = "/media/"
+#     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Application definition
 
