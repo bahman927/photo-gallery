@@ -1,24 +1,67 @@
 import os
 from pathlib import Path
 from decouple import config
+from dotenv import load_dotenv
+
+# load_dotenv()  # this loads .env variables into os.environ
+
 import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ---------- CORE ----------
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config("DEBUG", default=False, cast=bool)
-# ENV_PATH = BASE_DIR / ".env"
-# from dotenv import load_dotenv
-# if ENV_PATH.exists():
-#     load_dotenv(dotenv_path=ENV_PATH)
-
+DEBUG = config("DEBUG", default=True, cast=bool)
+ 
 ALLOWED_HOSTS = [
     "photo-gallery-c9s4.onrender.com", 
     "photo-gallery-frontend-iyvv.onrender.com", 
     "localhost",                        
     "127.0.0.1",
 ]
+
+from decouple import config
+
+AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
+# print(f"DEBUG: AWS_ACCESS_KEY_ID loaded? {bool(AWS_ACCESS_KEY_ID)}")
+AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME = config("AWS_S3_REGION_NAME", default="us-east-2")
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
+AWS_S3_SIGNATURE_VERSION = "s3v4"
+AWS_DEFAULT_ACL = None
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"  this statement should't be defined whenever using S3, instead defining below STORAGES IS NEEDED
+# STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+}
+
+
+# STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
+
+# Media files (user uploads)
+# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+# MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
+
+# -----------------------------------------------
+# ✅ FORCE S3 Storage backend for all environments
+# -----------------------------------------------
+# from storages.backends.s3boto3 import S3Boto3Storage
+
+
+# MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/"
+# STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/static/"
+
 
 DATABASES = {
     'default': {
@@ -34,11 +77,11 @@ DATABASES = {
 
 # ---------- DATABASE ----------
 DATABASE_URL = os.environ.get("DATABASE_URL")
- 
+ENVIRONMENT = config("ENVIRONMENT", default="development")
 import dj_database_url
 from decouple import config
 
-DEBUG = config("DEBUG", default=True, cast=bool)
+DEBUG = config("DEBUG", default=False, cast=bool)
 
 if DEBUG:  
     # Local development
@@ -50,44 +93,21 @@ else:
     DATABASES = {
         "default": dj_database_url.parse(config("DATABASE_URL"))
     }
-# -------------MEDIA-------------
-# --- Django settings ---
-DEBUG = os.environ.get("DEBUG", "False") == "True"
-SECRET_KEY = os.environ.get("SECRET_KEY", "fallback-secret-key")
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
+ 
+# AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
+# AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
+# AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
+# AWS_S3_REGION_NAME = config("AWS_S3_REGION_NAME", default="us-east-2")
+# AWS_QUERYSTRING_AUTH = False  
+# AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+# AWS_S3_SIGNATURE_VERSION = "s3v4"
+# AWS_DEFAULT_ACL = None
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+# MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
 
-# --- AWS S3 storage ---
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
-AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME", "us-east-1")
-AWS_S3_SIGNATURE_VERSION = "s3v4"
-AWS_DEFAULT_ACL = None
-AWS_S3_FILE_OVERWRITE = False
-AWS_QUERYSTRING_AUTH = False  # public URLs
-
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/"
-
-# if not DEBUG:
-#     AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
-#     AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
-#     AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
-#     AWS_S3_REGION_NAME = config("AWS_S3_REGION_NAME", default="us-east-2")
-#     AWS_QUERYSTRING_AUTH = False  # signed URLs for private access
-#     AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-#     AWS_S3_SIGNATURE_VERSION = "s3v4"
-#     DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-#     MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
-#     AWS_DEFAULT_ACL = None
-
-# else:
-#     # ✅ Local dev storage
-#     MEDIA_URL = "/media/"
-#     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
-# Application definition
-
+    
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -225,8 +245,8 @@ STATIC_ROOT = BASE_DIR / "staticfiles"  # for collectstatic (production)
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ALLOW_ALL_ORIGINS = False  # For development only
 CORS_ALLOWED_ORIGINS = [
-   
-    "https://photo-gallery-frontend-iyvv.onrender.com",
+   "http://localhost:5173",
+   "https://photo-gallery-frontend-iyvv.onrender.com",
 ]
 CORS_ALLOW_CREDENTIALS = True
 
@@ -235,3 +255,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://photo-gallery-frontend-iyvv.onrender.com",
 ]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# =======================================
+# AWS S3 Storage Configuration
+# =======================================
