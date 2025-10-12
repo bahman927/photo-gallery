@@ -8,7 +8,6 @@ async function refreshAccessToken() {
   if (!refreshToken) throw new Error("No refresh token found");
 
   try {
-    // const res = await axios.post(`${BASE_URL}/token/refresh/`, {
     const res = await axios.post(`${apiUrl}/token/refresh/`, {
       refresh: refreshToken,
     });
@@ -28,8 +27,8 @@ async function refreshAccessToken() {
 export async function apiRequest(endpoint, options = {}) {
   let token = localStorage.getItem("access_Token");
   const isFormData = options.body instanceof FormData;
-
-  // console.log('options:', options, "options.headers :", options.headers)
+   
+   console.log('options:', options, "options.headers :", options.headers)
   let headers = {
     ...(options.headers || {}),
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -47,7 +46,6 @@ export async function apiRequest(endpoint, options = {}) {
 
     return response.data;
   } catch (error) {
-    // If unauthorized → try refresh
     if (error.response?.status === 401) {
       try {
         token = await refreshAccessToken();
@@ -79,7 +77,7 @@ export async function getPhotos() {
   try {
     const url = `${apiUrl}/photos/`;
     const response = await axios.get(url);
-   // console.log("response : ", response)
+    console.log("response : ", response)
     return response.data;
   } catch (error) {
     console.error("Failed to fetch photos:", error.response?.data || error.message);
