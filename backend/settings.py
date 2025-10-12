@@ -34,6 +34,8 @@ AWS_DEFAULT_ACL = None
 MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
 # DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"  this statement should't be defined whenever using S3, instead defining below STORAGES IS NEEDED
 # STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/"
 
 
 
