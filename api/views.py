@@ -15,29 +15,61 @@ from django.conf import settings
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 import datetime
+import boto3
 
 def test_s3_upload(request):
     message = ""
+    uploaded_url = None
+    s3_files = []
+
+    # ✅ Initialize boto3 client directly (to list objects)
+    s3 = boto3.client(
+        "s3",
+        aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+        region_name=settings.AWS_S3_REGION_NAME,
+    )
+
+    # 🟢 1. Handle Upload (POST)
     if request.method == "POST":
         try:
-            # Generate a timestamped file name
             filename = f"photos/test_from_render_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.html"
-
-            # File content
             content = "<h1>Hello from Render!</h1><p>This is a test upload to S3.</p>"
+            file_obj = ContentFile(content.encode("utf-8"))
 
-            # Upload to default storage (S3)
-            file_obj = ContentFile(content.encode('utf-8'))
+            # Save to S3
             path = default_storage.save(filename, file_obj)
+            uploaded_url = f"{settings.MEDIA_URL}{path}"
+            message = f"✅ File uploaded successfully: {uploaded_url}"
 
-            message = f"✅ File uploaded successfully to: {settings.MEDIA_URL}{path}"
-            print("✅ Upload successful:", settings.MEDIA_URL + path)
+            print("✅ Upload successful:", uploaded_url)
 
         except Exception as e:
             message = f"❌ Upload failed: {e}"
             print("❌ Upload failed:", e)
 
-    return render(request, "api/test_upload.html", {"message": message})
+    # 🟡 2. List existing files in S3 /photos/
+    try:
+        response = s3.list_objects_v2(
+            Bucket=settings.AWS_STORAGE_BUCKET_NAME,
+            Prefix="photos/"
+        )
+
+        if "Contents" in response:
+            s3_files = [
+                f"https://{settings.AWS_STORAGE_BUCKET_NAME}.s3.{settings.AWS_S3_REGION_NAME}.amazonaws.com/{item['Key']}"
+                for item in response["Contents"]
+            ]
+        else:
+            message += "\n(No files found in /photos/)"
+    except Exception as e:
+        message += f"\n❌ Could not list S3 files: {e}"
+
+    return render(
+        request,
+        "api/test_upload.html",
+        {"message": message, "uploaded_url": uploaded_url, "s3_files": s3_files},
+    )
 
 
 @api_view(["POST"])

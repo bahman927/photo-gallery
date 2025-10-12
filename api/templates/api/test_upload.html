@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,6 +14,41 @@
 
     {% if message %}
         <p><strong>{{ message }}</strong></p>
+    {% endif %}
+</body>
+</html> {% endcomment %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test S3 Upload</title>
+</head>
+<body style="font-family: Arial; margin: 40px;">
+    <h2>Render → S3 Upload Test</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Upload test.html to S3</button>
+    </form>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% if uploaded_url %}
+        <p>✅ Uploaded file: <a href="{{ uploaded_url }}" target="_blank">{{ uploaded_url }}</a></p>
+    {% endif %}
+
+    <h3>Files currently in S3 /photos/:</h3>
+    {% if s3_files %}
+        <ul>
+        {% for f in s3_files %}
+            <li><a href="{{ f }}" target="_blank">{{ f }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No files found in the S3 /photos/ folder.</p>
     {% endif %}
 </body>
 </html>
