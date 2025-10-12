@@ -46,22 +46,7 @@ STORAGES = {
     },
 }
 
-
-# STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
-
-# Media files (user uploads)
-# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-# MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
-
-# -----------------------------------------------
-# ✅ FORCE S3 Storage backend for all environments
-# -----------------------------------------------
-# from storages.backends.s3boto3 import S3Boto3Storage
-
-
-# MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/"
-# STATIC_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/static/"
-
+ 
 
 DATABASES = {
     'default': {
@@ -94,19 +79,6 @@ else:
         "default": dj_database_url.parse(config("DATABASE_URL"))
     }
  
-# AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
-# AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
-# AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
-# AWS_S3_REGION_NAME = config("AWS_S3_REGION_NAME", default="us-east-2")
-# AWS_QUERYSTRING_AUTH = False  
-# AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-# AWS_S3_SIGNATURE_VERSION = "s3v4"
-# AWS_DEFAULT_ACL = None
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-# MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
-
     
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -233,9 +205,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
- 
-
 STATIC_URL = '/static/'
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static",   # your project-level static folder
@@ -256,6 +225,4 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# =======================================
-# AWS S3 Storage Configuration
-# =======================================
+ 
