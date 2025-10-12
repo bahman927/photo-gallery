@@ -492,7 +492,7 @@ const handleEdit = (photo) => {
             </button>
           </>
         ) : (
-          <Link to="/login" className="font-bold hover:text-gray-400">
+          <Link to="/login" className="font-bold  text-black hover:text-gray-400">
             Login
           </Link>
         )}
