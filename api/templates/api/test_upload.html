@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Test File to S3</title>
+</head>
+<body>
+    <h2>Upload Test File to S3</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Upload test.html to S3</button>
+    </form>
+
+    {% if message %}
+        <p><strong>{{ message }}</strong></p>
+    {% endif %}
+</body>
+</html>

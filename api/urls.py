@@ -17,6 +17,7 @@ urlpatterns = [
     path("photos/<int:pk>/", photo_detail, name="photo-detail"),   
     path('token/',   TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view()),   # returns new access token
+    path("test-s3-upload/", views.test_s3_upload, name="test_s3_upload"),
    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

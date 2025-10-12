@@ -10,6 +10,36 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.parsers import MultiPartParser, FormParser
 
+from django.shortcuts import render
+from django.conf import settings
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+import datetime
+
+def test_s3_upload(request):
+    message = ""
+    if request.method == "POST":
+        try:
+            # Generate a timestamped file name
+            filename = f"photos/test_from_render_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.html"
+
+            # File content
+            content = "<h1>Hello from Render!</h1><p>This is a test upload to S3.</p>"
+
+            # Upload to default storage (S3)
+            file_obj = ContentFile(content.encode('utf-8'))
+            path = default_storage.save(filename, file_obj)
+
+            message = f"✅ File uploaded successfully to: {settings.MEDIA_URL}{path}"
+            print("✅ Upload successful:", settings.MEDIA_URL + path)
+
+        except Exception as e:
+            message = f"❌ Upload failed: {e}"
+            print("❌ Upload failed:", e)
+
+    return render(request, "api/test_upload.html", {"message": message})
+
+
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def login_view(request):
