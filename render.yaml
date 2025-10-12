@@ -1,0 +1,15 @@
+# render.yaml (TEMPORARY CONFIGURATION)
+
+services:
+  - type: web
+    name: photo-app-backend
+    # ... other fields
+    startCommand: |
+      # 1. Run migrations
+      python manage.py migrate --noinput
+      # 2. CREATE SUPERUSER (NON-INTERACTIVE)
+      python manage.py createsuperuser --noinput --username amin927 --email admin@example.com
+      # 3. SET PASSWORD (using a secondary command)
+      echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.get(username='admin927').set_password('Robin927'); User.objects.get(username='amin927').save()" | python manage.py shell
+      # 4. Start Gunicorn/Uvicorn
+      gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT
