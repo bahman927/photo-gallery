@@ -140,9 +140,8 @@ def photo_detail(request, pk):
         # ✅ Only uploader or admin can update
         if request.user != photo.uploader and not request.user.is_staff:
             return Response({"detail": "Not authorized."}, status=status.HTTP_403_FORBIDDEN)
-
-        serializer = PhotoSerializer(photo, data=request.data, partial=True)  # partial=True allows updating some fields
-        # serializer = PhotoSerializer(photo, data=request.data, partial=(request.method == "PATCH"))
+        print("default storage:",default_storage.__class__)
+        serializer = PhotoSerializer(photo, data=request.data, partial=True)  
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
