@@ -70,18 +70,22 @@ const PhotoCarousel = () => {
       {/* Thumbnails */}
   <div className="slide" 
        ref={slideRef} 
-       style={{ display: "flex", 
+       style={{
+       display: "flex", 
+       flexWrap: "wrap",
        justifyContent:"center",
-       marginTop:   "1px",  gap: "5px",   }}>
+       marginTop:   "1px",
+       gap: "5px",   }}>
+       
        {Array.isArray(photos) &&
           photos.map((photo, index) => (
             <div
               key={photo.id}
               className={`item ${index === currentIndex ? "active" : ""}`}
               style={{
-                width: "120px",
-                height: "80px",
-                margin: "5px",
+                width: "110px",
+                height: "75px",
+                margin: "3px",
                 borderRadius: "6px",
                 backgroundImage: `url(${photo.image})`,
                 backgroundSize: "cover",
