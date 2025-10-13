@@ -19,6 +19,7 @@ const PhotoCarousel = () => {
      setCurrentIndex((prevIndex) => {
        const newIndex = (prevIndex + 1) % photos.length;
 
+    // console.log("Next photo is:", photos[newIndex].image);
 
     return newIndex;  // <--- this updates currentIndex
   });
@@ -29,6 +30,8 @@ const PhotoCarousel = () => {
 
       setCurrentIndex((prevIndex) => {
         const newIndex = (prevIndex - 1 + photos.length) % photos.length;
+
+    // console.log("Prev Photo:", photos[newIndex].image);
 
     return newIndex;
   });
@@ -54,14 +57,7 @@ const PhotoCarousel = () => {
         <p>No photo available</p>
       )}
 
-      {/* {photos.length > 0 && (
-        <img
-          src={currentPhoto.image}  
-          alt="Selected"
-          className="main-image"
-        />
-      )}
-    {!currentPhoto && <p>No photo available</p>} */}
+      
   </div>
 
       {/* Thumbnails */}

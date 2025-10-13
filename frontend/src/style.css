@@ -72,11 +72,6 @@
   animation: slideDown 0.8s ease-out forwards;
 }
 
-/* Default (desktop/tablet) is fine with flex row */
-
-
-
-
 .carousel * {
     margin: 0;
     padding: 0;
@@ -197,7 +192,7 @@
 
 .gallery {
   text-align: center;
-  width: 2120px
+  width: 1900px
      
 }
 

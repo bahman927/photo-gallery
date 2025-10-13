@@ -607,6 +607,7 @@ const styles = {
     fontWeight: "500",
     fontSize: "0.875rem",
     margin: 0,
+    color: "#64748b",
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
