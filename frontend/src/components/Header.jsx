@@ -181,7 +181,7 @@ const handleEdit = (photo) => {
   
 
   return (
-    <header className="flex items-center justify-between px-6 py-4 text-white bg-sky-50 shadow-md md:items-center">
+    <header className="flex items-center justify-between px-4 py-2 text-white bg-sky-50 shadow-md md:items-center">
    
       <div className="mr-64 text-2xl font-bold animate-wave">Hannah PhotoGallery</div> 
        
