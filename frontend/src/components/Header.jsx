@@ -460,7 +460,7 @@ const handleEdit = (photo) => {
             <div style={styles.modalContent}>
               <h3 style={styles.modalTitle}>About Me</h3>
               <p style={styles.modalText}>
-                Hello! I'm a passionate photographer with expertise in taking photos,
+                Hello! I'm a passionate photographer with expertise in taking photos
                 from diffrent environment.
               </p>
               <p style={styles.modalText}>

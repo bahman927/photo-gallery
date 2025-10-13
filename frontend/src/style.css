@@ -174,7 +174,8 @@
 }
  
 .main-display {
-  width: 100%;
+  /* width: 100%; */
+  width: 1000px;
   height: 650px;
   max-width: 1900px;
   display: flex;
