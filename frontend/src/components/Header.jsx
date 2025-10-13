@@ -561,7 +561,7 @@ const styles = {
   },
   modalTitle: {
     fontWeight: "bold",
-    fontSize: "1.25rem",
+    fontSize: "1rem",
     marginTop: 0,
     marginBottom: "1rem",
     color: "#2c3e50",
