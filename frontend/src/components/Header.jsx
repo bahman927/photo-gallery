@@ -460,11 +460,11 @@ const handleEdit = (photo) => {
             <div style={styles.modalContent}>
               <h3 style={styles.modalTitle}>About Me</h3>
               <p style={styles.modalText}>
-                Hello! I'm a passionate developer with expertise in React,
-                JavaScript, and modern web technologies.
+                Hello! I'm a passionate photographer with expertise in taking photos,
+                from diffrent environment.
               </p>
               <p style={styles.modalText}>
-                When I'm not coding, you can find me hiking, reading, or
+                When I'm not photographing, you can find me hiking, reading, or
                 experimenting with new recipes in the kitchen.
               </p>
               <button
@@ -486,7 +486,7 @@ const handleEdit = (photo) => {
             </span>
             <button
               onClick={handleLogout}
-              className="px-4 py-2 ml-3 font-semibold text-black bg-blue-800 rounded-lg hover:bg-blue-600"
+              className="px-4 py-2 ml-3 font-semibold text-black bg-blue-400 rounded-lg hover:bg-blue-100"
             >
               Logout
             </button>
