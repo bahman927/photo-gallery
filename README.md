@@ -3,6 +3,8 @@
 A full-stack photo gallery web application built with **React (frontend)** and **Django (backend)**.  
 Users can upload, view, and manage images in a responsive gallery interface.  
 Authentication is handled with JWT tokens, and user-specific photo storage is supported.
+All vistors of the website can see photos based on their categgoris. But only superuser 
+can edit and upload photo.
 
 🌐 **Live Demo:** [(https://photo-gallery-frontend-iyvv.onrender.com)]
 
@@ -33,6 +35,7 @@ Authentication is handled with JWT tokens, and user-specific photo storage is su
 - PostgreSQL
 - Pillow (for image processing)
 - CORS Headers
+- AWS S3 as photos resource
 
 ---
 
