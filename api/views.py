@@ -140,7 +140,6 @@ def photo_detail(request, pk):
         # ✅ Only uploader or admin can update
         if request.user != photo.uploader and not request.user.is_staff:
             return Response({"detail": "Not authorized."}, status=status.HTTP_403_FORBIDDEN)
-        print("default storage:",default_storage.__class__)
         serializer = PhotoSerializer(photo, data=request.data, partial=True)  
         if serializer.is_valid():
             serializer.save()
@@ -154,10 +153,6 @@ def photo_detail(request, pk):
 
         photo.delete()
         return Response({"detail": "Photo deleted."}, status=status.HTTP_204_NO_CONTENT)
-
-
-
-
 
 
 
