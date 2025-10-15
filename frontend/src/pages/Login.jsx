@@ -57,8 +57,8 @@ export default function Login() {
         />
         <button
           type="submit"
-          style={{ height: "30px" }}
-          className="w-full p-2 mt-2 text-white rounded bg-2-blue-500 hover:bg-blue-600"
+          style={{ height: "35px" }}
+          className="w-full p-2 mt-2 text-white rounded bg-blue-300 hover:bg-blue-600"
         >
           Submit
         </button>

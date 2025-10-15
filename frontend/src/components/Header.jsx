@@ -177,7 +177,7 @@ export default function Header() {
           ) : (
             <Link
               to="/login"
-              className="px-3 py-1 bg-gray-200 text-black rounded hover:bg-gray-300 transition"
+              className="  text-center px-3 py-1 bg-gray-200 text-black rounded hover:bg-gray-300 transition "
             >
               Login
             </Link>
