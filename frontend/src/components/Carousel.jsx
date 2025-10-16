@@ -12,6 +12,7 @@ const PhotoCarousel = () => {
     return (
       <div className="flex justify-center items-center min-h-[300px] text-gray-600">
         Loading photos...
+        takes few seconds
       </div>
     );
   }

@@ -134,7 +134,7 @@ export default function Header() {
             <option value="All">All</option>
             <option value="5">Outdoor</option>
             <option value="1">Portrait</option>
-            <option value="2">Family</option>
+            {/* <option value="2">Family</option> */}
             <option value="3">Nature</option>
             <option value="4">Skyscraper</option>
             <option value="6">People</option>
@@ -302,7 +302,7 @@ export default function Header() {
                   <option value="3">Nature</option>
                   <option value="4">Skyscraper</option>
                   <option value="1">Portrait</option>
-                  <option value="2">Family</option>
+                  {/* <option value="2">Family</option> */}
                   <option value="6">People</option>
                   <option value="5">Outdoor</option>
                 </select>

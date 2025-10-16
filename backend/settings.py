@@ -198,6 +198,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = "None"
+CSRF_COOKIE_SAMESITE = "None"
+
 
 LANGUAGE_CODE = "en-us"
 
@@ -214,9 +219,10 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"  # for collectstatic (production)
  
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 CORS_ALLOW_ALL_ORIGINS = False  # For development only
 CORS_ALLOWED_ORIGINS = [
-   "http://localhost:5173",
+   "https://photo-gallery-c9s4.onrender.com",
    "https://photo-gallery-frontend-iyvv.onrender.com",
 ]
 CORS_ALLOW_CREDENTIALS = True
