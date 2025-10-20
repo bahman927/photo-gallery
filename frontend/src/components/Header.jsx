@@ -123,7 +123,7 @@ export default function Header() {
         {/* Category selector */}
         <div className="flex items-center gap-2">
           <label htmlFor="category" className="font-bold text-black">
-            Category:
+            Search by Category:
           </label>
           <select
             id="category"
