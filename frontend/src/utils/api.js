@@ -41,7 +41,7 @@ export async function apiRequest(endpoint, options = {}) {
       url: `${apiUrl}${endpoint}`,
       data: options.body,
       headers,
-      withCredentials: false,
+      withCredentials: true,
     });
 
     return response.data;

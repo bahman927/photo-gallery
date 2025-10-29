@@ -1,5 +1,10 @@
 /* Scope reset styles only to the carousel */
  @import "tailwindcss";
+ /* in index.css or global.css */
+body {
+  overflow: hidden;
+}
+
 
  @keyframes wave {
             0% { background-position: 0% 50%; }
@@ -81,7 +86,7 @@
 .carousel {
     position: relative;
     width: 1900px;
-    height: 1200px;
+    height: 1500px;
     margin: 0 auto;
     border-radius: 30px;
     background: #f5f5f5;
@@ -232,4 +237,63 @@
 .item.active {
   transform: scale(1.15);
   border: 3px solid #007bff;
+}
+
+
+
+@keyframes scroll-left {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-30%);
+  }
+}
+
+.animate-scroll-left {
+  animation: scroll-left 12s linear infinite;
+}
+
+
+/* @keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  99% {
+    transform: translateX(-30%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+ 
+
+ 
+/* Hide scrollbar for clean appearance */
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Optional — smooth gradient edges for style */
+.carousel {
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.group:hover {
+  animation-play-state: paused;
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fade-in-up 2s ease-out forwards;
 }

@@ -102,9 +102,10 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-sky-50 shadow-md px-4 py-3 relative md:flex md:items-center md:justify-between">
+     <header className="bg-sky-50 shadow-md px-0 py-2 flex flex-col space-y-1 md:py-2 relative md:flex-row  md:items-center md:justify-center">
+    
       {/* Logo */}
-      <div className="text-2xl font-bold animate-wave text-black">Hannah PhotoGallery</div>
+      <div className="text-2xl font-bold mr-12 animate-wave md:-ml-40 ">Hannah PhotoGallery</div>
 
       {/* Hamburger menu for mobile */}
       <button
@@ -116,12 +117,12 @@ export default function Header() {
 
       {/* Menu Items */}
       <nav
-        className={`flex flex-col md:flex-row md:items-center gap-2 mt-3 md:mt-0 ${
+        className={`flex flex-col md:flex-row md:items-center md:ml-40 gap-4 mt-0 md:mt-0 ${
           mobileMenuOpen ? "block" : "hidden md:flex"
         }`}
       >
         {/* Category selector */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           <label htmlFor="category" className="font-bold text-black">
             Search by Category:
           </label>
@@ -134,7 +135,6 @@ export default function Header() {
             <option value="All">All</option>
             <option value="5">Outdoor</option>
             <option value="1">Portrait</option>
-            {/* <option value="2">Family</option> */}
             <option value="3">Nature</option>
             <option value="4">Skyscraper</option>
             <option value="6">People</option>
@@ -142,7 +142,7 @@ export default function Header() {
         </div>
 
         {/* Buttons */}
-        <div className="flex flex-col md:flex-row gap-2 md:gap-3 mt-2 md:mt-0">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-4 mt-2 md:mt-0">
           <button
             className="px-3 py-1 bg-blue-400 text-white rounded hover:bg-blue-500 transition"
             onClick={() => setIsManageOpen(!isManageOpen)}
@@ -158,7 +158,7 @@ export default function Header() {
           </button>
 
           <button
-            className="px-3 py-1 bg-gray-300 text-black rounded hover:bg-gray-400 transition"
+            className="px-3 py-1 gap-4 bg-gray-300 text-black rounded hover:bg-gray-400 transition"
             onClick={() => setIsAboutOpen(!isAboutOpen)}
           >
             About Me
@@ -166,7 +166,7 @@ export default function Header() {
 
           {username ? (
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-blue-500">Welcome, {username}</span>
+              <span className="font-semibold text-blue-500 mr-4">Welcome, {username}</span>
               <button
                 onClick={handleLogout}
                 className="px-3 py-1 bg-red-400 text-white rounded hover:bg-red-500 transition"
@@ -184,7 +184,7 @@ export default function Header() {
           )}
         </div>
       </nav>
-
+     
       {/* About Me Modal */}
       {isAboutOpen && (
         <div className="absolute top-full right-0 mt-2 w-full max-w-xs bg-white rounded shadow p-4 z-50">
@@ -202,9 +202,9 @@ export default function Header() {
 
       {/* Manage Photos Modal */}
       {isManageOpen && (
-        <div className="absolute top-full right-0 mt-2 w-full max-w-sm bg-white rounded shadow-lg z-50 p-4 md:max-w-md">
+        <div className="absolute top-full right-100 mt-4 w-full max-w-sm bg-white rounded shadow-lg z-50 p-4 md:max-w-md">
           <h3 className="font-bold text-lg mb-3">Manage Photos</h3>
-          <div className="max-h-80 overflow-y-auto flex flex-col gap-2">
+          <div className="max-h-100 overflow-y-auto flex flex-col gap-2">
             {photos.length === 0 ? (
               <p className="text-gray-500 text-center py-4">No photos available.</p>
             ) : (
@@ -226,18 +226,18 @@ export default function Header() {
                     <button
                       onClick={() => handleEdit(photo)}
                       disabled={!isLoggedIn}
-                      className={`px-2 py-1 text-xs rounded ${
+                      className={`cursor-pointer px-2 py-1 text-xs rounded ${
                         isLoggedIn
                           ? "bg-blue-500 text-white hover:bg-blue-600"
                           : "bg-blue-200 text-white opacity-50 cursor-not-allowed"
                       }`}
                     >
-                      Edit
+                      Edit 
                     </button>
                     <button
                       onClick={() => handleDelete(photo.id)}
                       disabled={!isLoggedIn}
-                      className={`px-2 py-1 text-xs rounded ${
+                      className={` cursor-pointer px-2 py-1 text-xs rounded ${
                         isLoggedIn
                           ? "bg-red-500 text-white hover:bg-red-600"
                           : "bg-red-200 text-white opacity-50 cursor-not-allowed"
@@ -259,9 +259,67 @@ export default function Header() {
         </div>
       )}
 
+ {editingPhoto && (
+    <div
+    className="absolute top-[120px] left-1/2 w-[400px] -translate-x-1/2 bg-white p-6 rounded-xl shadow-xl border border-gray-200 z-50 "
+  >
+    <div className="flex flex-col gap-4">
+      <h3 className="text-lg font-semibold text-gray-800 text-center">
+        Edit Photo
+      </h3>
+
+      <form
+        onSubmit={handleUpdate}
+        className="flex flex-col gap-3"
+      >
+        <label className="text-sm font-medium text-gray-700">Title</label>
+        <input
+          type="text"
+          value={editTitle}
+          onChange={(e) => setEditTitle(e.target.value)}
+          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        <label className="text-sm font-medium text-gray-700">Category</label>
+        <select
+          value={editCategory}
+          onChange={(e) => setEditCategory(e.target.value)}
+          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        >
+          <option value="">-- Select Category --</option>
+          <option value="3">Nature</option>
+          <option value="4">Skyscraper</option>
+          <option value="1">Portrait</option>
+          <option value="2">Family</option>
+          <option value="6">People</option>
+          <option value="5">Outdoor</option>
+        </select>
+
+        <div className="flex gap-3 justify-end mt-3">
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700 transition"
+          >
+            Save Changes
+          </button>
+          <button
+            type="button"
+            onClick={() => setEditingPhoto(null)}
+            className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md shadow hover:bg-gray-300 transition"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
+
+
       {/* Upload Photo Modal */}
-      {isUploadOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+{isUploadOpen && (
+        <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg w-full max-w-md p-6 overflow-y-auto max-h-[90vh]">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold flex items-center gap-2">
@@ -302,7 +360,6 @@ export default function Header() {
                   <option value="3">Nature</option>
                   <option value="4">Skyscraper</option>
                   <option value="1">Portrait</option>
-                  {/* <option value="2">Family</option> */}
                   <option value="6">People</option>
                   <option value="5">Outdoor</option>
                 </select>

@@ -242,6 +242,7 @@ const handleEdit = (photo) => {
                     >
                     Edit
                   </button>
+                  
                   <button onClick={() => handleDelete(photo.id)}
                    style={{
                            ...styles.deleteButton,
