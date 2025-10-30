@@ -35,12 +35,13 @@ const PhotoCarousel = () => {
     
     
     {/* This is the animated strip of photos */}
-    <div className="group flex items-center gap-4 pr-2 animate-scroll-left ">
+    <div className="group inline-flex whitespace-nowrap  items-center gap-4 pr-2 animate-scroll-left ">
       {photos.map((photo, index) => (
         <div
           key={photo.id}
           onClick={() => setCurrentIndex(index)}
-          className="photo-card flex items-center justify-center h-[100px] w-[150px] rounded-md overflow-hidden transition-transform duration-300 hover:scale-110 hover:shadow-2xl cursor-pointer"
+          // className="photo-card flex items-center justify-center h-[100px] w-[150px] rounded-md overflow-hidden transition-transform duration-300 hover:scale-110 hover:shadow-2xl cursor-pointer"
+          className="photo-card inline-block h-[100px] w-[150px] rounded-md overflow-hidden transition-transform duration-300 hover:scale-110 hover:shadow-2xl cursor-pointer"
         >
           <img
             src={photo.image}
