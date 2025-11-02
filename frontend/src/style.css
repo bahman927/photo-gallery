@@ -246,28 +246,13 @@ body {
     transform: translateX(0%);
   }
   to {
-    transform: translateX(-30%);
+    transform: translateX(-50%);
   }
 }
 
 .animate-scroll-left {
-  animation: scroll-left 12s linear infinite;
+  animation: scroll-left 30s linear infinite;
 }
-
-
-/* @keyframes scroll-left {
-  0% {
-    transform: translateX(0%);
-  }
-  99% {
-    transform: translateX(-30%);
-  }
-  100% {
-    transform: translateX(0%);
-  }
-}
- 
-
  
 /* Hide scrollbar for clean appearance */
 .carousel::-webkit-scrollbar {
@@ -281,6 +266,14 @@ body {
 
 .group:hover {
   animation-play-state: paused;
+}
+
+.scroll-container {
+  /* Existing property for horizontal scrolling */
+  overflow-x: auto; 
+  
+  /* The CRITICAL fix for iOS touch devices */
+  -webkit-overflow-scrolling: touch; 
 }
 
 @keyframes fade-in-up {
