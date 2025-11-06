@@ -31,17 +31,23 @@ const PhotoCarousel = () => {
 <div className="relative flex justify-center mt-0">
   {/* This is your visible frame — 2/3 width of page */}
   {/* <div className="min-w-fit max-w-lvw overflow-hidden scrollbar-hide"> */}
-  <div className="scroll-container min-w-fit w-full overflow-x-scroll scrolling-touch scrollbar-hide">
+  <div className="scroll-container w-full overflow-x-auto scrolling-touch scrollbar-hide">
   
     
     
     {/* This is the animated strip of photos */}
-    <div className=" group inline-flex whitespace-nowrap  items-center gap-4 pr-2 animate-scroll-left ">
+    {/* <div className=" group inline-flex whitespace-nowrap  items-center gap-4 pr-2 animate-scroll-left "> */}
+     <div className={`group inline-flex whitespace-nowrap items-center gap-4 pr-2 ${
+      // Only animate on non-touch devices or larger screens
+      typeof window !== 'undefined' && window.innerWidth > 768 
+          ?  'animate-scroll-left' 
+        : ''
+    }`}>
       {photos.map((photo, index) => (
         <div
           key={photo.id}
           onClick={() => setCurrentIndex(index)}
-          className="photo-card inline-block h-[100px] w-[120px] rounded-md overflow-hidden transition-transform duration-300 hover:scale-110 hover:shadow-2xl cursor-pointer"
+          className="photo-card inline-flex h-[80px] w-[100px]  md:h-[100px] md:w-[120px]  rounded-md overflow-hidden transition-transform duration-300  hover:scale-110 hover:shadow-2xl cursor-pointer  "
         >
           <img
             src={photo.image}

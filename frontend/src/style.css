@@ -268,12 +268,15 @@ body {
   animation-play-state: paused;
 }
 
-.scroll-container {
-  /* Existing property for horizontal scrolling */
-  overflow-x: auto; 
+/* Disable animation on mobile */
+@media (max-width: 768px) {
+  .animate-scroll-left {
+    animation: none;
+  }
   
-  /* The CRITICAL fix for iOS touch devices */
-  -webkit-overflow-scrolling: touch; 
+  .scroll-container {
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
 }
 
 @keyframes fade-in-up {
