@@ -180,11 +180,7 @@ STORAGES = {
 }
 
 
-CORS_ALLOWED_ORIGINS = [
-    "https://photo-gallery-frontend-iyvv.onrender.com",  # your deployed React app
-    "http://localhost:3000",                            # for local dev
-    "http://127.0.0.1:3000",
-]
+ 
 
 CORS_ALLOW_CREDENTIALS = True
 
