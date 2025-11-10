@@ -36,7 +36,7 @@ const PhotoCarousel = () => {
       <div
         key={photo.id}
         onClick={() => setCurrentIndex(index)}
-        className="photo-card h-[100px] rounded-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer"
+        className="photo-card h-[70px] w-[90px] rounded-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer"
       >
         <img
           src={photo.image}
