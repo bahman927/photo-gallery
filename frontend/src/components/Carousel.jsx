@@ -50,7 +50,7 @@ const PhotoCarousel = () => {
   {/* For tablet/desktop — horizontal carousel */}
   <div className="hidden sm:block w-full overflow-x-hidden">
     <div
-      className={`inline-flex whitespace-nowrap items-center gap-4 pr-2 ${
+      className={` group inline-flex whitespace-nowrap items-center gap-4 pr-2 ${
         typeof window !== 'undefined' && window.innerWidth > 768
           ? 'animate-scroll-left'
           : ''

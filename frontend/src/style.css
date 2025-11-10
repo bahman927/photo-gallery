@@ -1,9 +1,9 @@
 /* Scope reset styles only to the carousel */
  @import "tailwindcss";
  /* in index.css or global.css */
-body {
-  /* overflow: hidden; */
-}
+/* body {
+  overflow: hidden;
+} */
 
 
  @keyframes wave {
@@ -264,9 +264,11 @@ body {
   mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
 }
 
+/* Pause carousel animation when hovered */
 .group:hover {
   animation-play-state: paused;
 }
+
 
 /* Disable animation on mobile */
 @media (max-width: 768px) {
