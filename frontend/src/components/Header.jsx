@@ -202,7 +202,7 @@ export default function Header() {
 
       {/* Manage Photos Modal */}
       {isManageOpen && (
-        <div className="absolute top-full right-[100px] sm:right-[10px] mt-4 w-full max-w-sm bg-white rounded shadow-lg z-50 p-4 md:max-w-md">
+        <div className="absolute top-full  mt-4 w-full max-w-sm bg-white rounded shadow-lg z-50 p-4 md:max-w-md">
           <h3 className="font-bold text-lg mb-3">Manage Photos</h3>
           <div className="max-h-100 overflow-y-auto flex flex-col gap-2">
             {photos.length === 0 ? (
