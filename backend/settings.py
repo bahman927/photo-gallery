@@ -58,7 +58,7 @@ AWS_S3_REGION_NAME = config("AWS_S3_REGION_NAME")
 AWS_S3_SIGNATURE_VERSION = "s3v4"
 
 # Store uploaded images under the photos/ prefix
-AWS_LOCATION = "photos"
+AWS_LOCATION = ""
 
 AWS_DEFAULT_ACL = None
 AWS_QUERYSTRING_AUTH = False
