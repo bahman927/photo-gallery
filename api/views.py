@@ -111,17 +111,46 @@ def photo_list_create(request):
         
         serializer = PhotoSerializer(data=request.data, context={"request": request})
 
+        print("DEBUG: Starting validation")
 
         if serializer.is_valid():
-            serializer.save()
-            return Response({
-                "success": True,
-                "data": serializer.data,
-                "message": "Photo uploaded successfully"
-            }, status=status.HTTP_201_CREATED,
-            )
+            print("DEBUG: Validation successful")
+            print("DEBUG: Validated data:", serializer.validated_data)
+
+            try:
+                photo = serializer.save()
+                print("DEBUG: Photo saved successfully:", photo.id)
+
+                return Response({
+                    "success": True,
+                    "data": PhotoSerializer(
+                        photo,
+                        context={"request": request}
+                    ).data,
+                    "message": "Photo uploaded successfully"
+                }, status=status.HTTP_201_CREATED)
+
+            except Exception as e:
+                import traceback
+                print("UPLOAD ERROR:", repr(e))
+                traceback.print_exc()
+                raise
+
         else:
-         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            print("DEBUG: Validation errors:", serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+        # if serializer.is_valid():
+        #     serializer.save()
+        #     return Response({
+        #         "success": True,
+        #         "data": serializer.data,
+        #         "message": "Photo uploaded successfully"
+        #     }, status=status.HTTP_201_CREATED,
+        #     )
+        # else:
+        #  return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["GET", "PUT", "DELETE", "PATCH"])
@@ -157,107 +186,3 @@ def photo_detail(request, pk):
 
 
 
-# @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
-# def protected_view(request):
-#     return Response({"message": f"Hello {request.user.username}, you are authenticated!"})
-
-# class CategoryViewSet(viewsets.ModelViewSet):
-#     queryset = Category.objects.all()
-#     serializer_class = CategorySerializer
-
-# # create
-# # class PhotoCreateAPIView(APIView):
-#     def post(self, request):
-#         serializer = PhotoSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=201)
-#         print("Serializer errors:", serializer.errors)
-#         return Response(serializer.errors, status=400)
-
-
-# class PhotoViewSet(viewsets.ModelViewSet):
-#     queryset = Photo.objects.all()
-#     serializer_class = PhotoSerializer
-#     filter_backends = [filters.SearchFilter]
-#     search_fields = ['category__name']  # allows ?search=Nature
-# # 📌 Update
-# class PhotoUpdateAPIView(APIView):
-#     def put(self, request, pk):
-#         print('pk=',pk, 'request.data= ', request.data)
-#         try:
-#             photo = Photo.objects.get(pk=pk)
-#         except Photo.DoesNotExist:
-#             return Response({'error': 'Not found'}, status=404)
-
-#         serializer = PhotoSerializer(photo, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors, status=400)
-
-# # 📌 Delete
-# class PhotoDeleteAPIView(APIView):
-  
-#     def delete(self, request, pk):
-#         try:
-#             photo = Photo.objects.get(pk=pk)
-#         except Photo.DoesNotExist:
-#             return Response({'error': 'Not found'}, status=404)
-
-#         photo.delete()
-#         return Response(status=204)
-    
-# #  List photos
-# class PhotoListAPIView(APIView):
-#     permission_classes = [AllowAny]
-#     def get(self, request):
-#         photos = Photo.objects.all()
-#         serializer = PhotoSerializer(photos, many=True)
-#         return Response(serializer.data)
-
-      
-# class LogoutView(APIView):
-#      def post(self, request):
-#         request.user.auth_token.delete()
-#         return Response(status=204)
-     
-# class LoginAPIView(APIView):
-#     def post(self, request):
-#         username = request.data.get('username')
-#         password = request.data.get('password')
-        
-#         user = authenticate(username=username, password=password)
-#         if user is not None:
-#             # Generate tokens for the authenticated user
-#             refresh = RefreshToken.for_user(user)
-            
-#             data = {
-#                 'refresh': str(refresh),
-#                 'access': str(refresh.access_token),
-#                 'username': user.username,
-#                 'email': user.email,
-#             }
-            
-#             response = Response(data, status=status.HTTP_200_OK)
-#             return response
-        
-#         return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-    
-# class CustomTokenRefreshView(TokenRefreshView):
-#     """
-#     Custom TokenRefreshView to issue a new access token.
-#     By default, SimpleJWT only refreshes the access token,
-#     but if you enable ROTATE_REFRESH_TOKENS, you'll also get a new refresh token.
-#     """
-#     def post(self, request, *args, **kwargs):
-#         response = super().post(request, *args, **kwargs)
-
-#         if response.status_code == 200:
-#             return Response({
-#                 "access": response.data.get("access"),
-#                 "refresh": response.data.get("refresh")  # only present if rotation enabled
-#             }, status=status.HTTP_200_OK)
-
-#         return response
