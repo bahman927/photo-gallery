@@ -105,12 +105,29 @@ def photo_list_create(request):
     print("R2 bucket:", settings.AWS_STORAGE_BUCKET_NAME)
     print("R2 endpoint:", settings.AWS_S3_ENDPOINT_URL)
     print("DEBUG request.data:", request.data)
-    
-    if request.method == "GET":
-        photos = Photo.objects.all().order_by("-uploaded_at")
-        serializer = PhotoSerializer(photos, many=True, context={"request": request})
 
-        return Response(serializer.data)
+    # if request.method == "GET":
+    #     photos = Photo.objects.all().order_by("-uploaded_at")
+    #     serializer = PhotoSerializer(photos, many=True, context={"request": request})
+
+    #     return Response(serializer.data)
+    if request.method == "GET":
+        try:
+            photos = Photo.objects.all().order_by("-uploaded_at")
+
+            serializer = PhotoSerializer(
+                photos,
+                many=True,
+                context={"request": request}
+            )
+
+            return Response(serializer.data)
+
+        except Exception as e:
+            import traceback
+            print("PHOTO GET ERROR:", repr(e))
+            traceback.print_exc()
+            raise
 
     elif request.method == "POST":
 
