@@ -51,19 +51,19 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # AWS S3 for media
-# AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID", default=None)
-AWS_ACCESS_KEY_ID = "4eba9a71c7805364e676785084529478"
-# AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY", default=None)
-AWS_SECRET_ACCESS_KEY="805db7cdbc3b3d6f85d34cbe0f5704392b4bea2d1f95339723e19a683cb3a01e"
+AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID", default=None)
+# AWS_ACCESS_KEY_ID = "4eba9a71c7805364e676785084529478"
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY", default=None)
+# AWS_SECRET_ACCESS_KEY="805db7cdbc3b3d6f85d34cbe0f5704392b4bea2d1f95339723e19a683cb3a01e"
 AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME", default="photo-gallery-media")
 AWS_S3_REGION_NAME = config("AWS_S3_REGION_NAME")
 AWS_S3_SIGNATURE_VERSION = "s3v4"
-AWS_STORAGE_BUCKET_NAME="photo-gallery-media"
+# AWS_STORAGE_BUCKET_NAME="photo-gallery-media"
 # Store uploaded images under the photos/ prefix
 AWS_LOCATION = ""
-AWS_S3_ENDPOINT_URL = (
-    f"https://a884614f036c864873b57694a7ad5d35.r2.cloudflarestorage.com"
-)
+# AWS_S3_ENDPOINT_URL = (
+#     f"https://a884614f036c864873b57694a7ad5d35.r2.cloudflarestorage.com"
+# )
 AWS_S3_REGION_NAME = "auto"
 AWS_S3_SIGNATURE_VERSION = "s3v4"
 AWS_DEFAULT_ACL = None
