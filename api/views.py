@@ -97,7 +97,15 @@ def login_view(request):
 @permission_classes([IsAuthenticatedOrReadOnly])  
 @parser_classes([MultiPartParser, FormParser])
 def photo_list_create(request):
+
+    from django.conf import settings
+
+    print("R2 access key exists:", bool(settings.AWS_ACCESS_KEY_ID))
+    print("R2 secret key exists:", bool(settings.AWS_SECRET_ACCESS_KEY))
+    print("R2 bucket:", settings.AWS_STORAGE_BUCKET_NAME)
+    print("R2 endpoint:", settings.AWS_S3_ENDPOINT_URL)
     print("DEBUG request.data:", request.data)
+    
     if request.method == "GET":
         photos = Photo.objects.all().order_by("-uploaded_at")
         serializer = PhotoSerializer(photos, many=True, context={"request": request})
