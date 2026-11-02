@@ -76,11 +76,32 @@ export async function apiRequest(endpoint, options = {}) {
 export async function getPhotos() {
   try {
     const url = `${apiUrl}/photos/`;
+
+    console.log("GET PHOTOS URL:", url);
+
     const response = await axios.get(url);
-    console.log("response : ", response)
+
+    console.log("PHOTO COUNT:", response.data.length);
+    console.log("PHOTO DATA:", response.data);
+
     return response.data;
   } catch (error) {
-    console.error("Failed to fetch photos:", error.response?.data || error.message);
+    console.error(
+      "Failed to fetch photos:",
+      error.response?.data || error.message
+    );
     throw error;
   }
 }
+
+// export async function getPhotos() {
+//   try {
+//     const url = `${apiUrl}/photos/`;
+//     const response = await axios.get(url);
+//     console.log("response : ", response)
+//     return response.data;
+//   } catch (error) {
+//     console.error("Failed to fetch photos:", error.response?.data || error.message);
+//     throw error;
+//   }
+// }

@@ -12,8 +12,7 @@ export function CategoryProvider({ children }) {
       try {
         const data = await getPhotos(); 
         const filtered = (category !== "All")
-        // ? data.filter((photo) => photo.category.name === category) // match by name
-        ? data.filter((photo) => photo.category.id === Number(category)) // match by id
+        ? data.filter((photo) => photo.category.id === Number(category)) 
         : data; 
         setPhotos(filtered);  
 

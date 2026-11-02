@@ -6,8 +6,8 @@ import Footer from "./components/Footer";
 import Login  from "./pages/Login";
 import AboutMe  from "./pages/AboutMe";
  // import PhotoCarousel_new from "./components/PhotoCarousel_new";
- import Carousel from "./components/Carousel";
-import PhotoCarousel from "./components/Carousel";
+import Carousel from "./components/Carousel";
+// import PhotoCarousel from "./components/Carousel";
 
 const App = () => {
     

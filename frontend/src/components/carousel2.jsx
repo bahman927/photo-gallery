@@ -41,9 +41,9 @@ const PhotoCarousel = () => {
       : null;
 
  return (
- <div  className="gallery">
+  <div  className="gallery">
       {/* Main Display */}
-   <div className="main-display">
+    <div className="main-display">
         {currentPhoto ? (
         <img
           src={currentPhoto.image}
@@ -55,10 +55,10 @@ const PhotoCarousel = () => {
       )}
 
      
-  </div>
+    </div>
 
       {/* Thumbnails */}
-  <div className="slide" 
+    <div className="slide" 
        ref={slideRef} 
        style={{
        display: "flex", 
@@ -91,17 +91,17 @@ const PhotoCarousel = () => {
               onClick={() => setCurrentIndex(index)}
             ></div>
           ))}
-  </div>
-  {/* buttons  */}
-  <div className="nav-buttons">
+     </div>
+     {/* buttons  */}
+     <div className="nav-buttons">
         <button className="prev" onClick={handlePrev}>
           Prev
         </button>
         <button className="next" onClick={handleNext}>
           Next
         </button>
-  </div>
-</div>
+     </div>
+ </div>
 );
 }
 export default PhotoCarousel;

@@ -23,7 +23,13 @@ ALLOWED_HOSTS = [
 # DATABASE CONFIGURATION
 # =========================
 # If DATABASE_URL exists (Render), use it; otherwise, use local env settings
+# DATABASE_URL = config("DATABASE_URL", default=None)
 DATABASE_URL = config("DATABASE_URL", default=None)
+
+if DATABASE_URL:
+    print("DATABASE_URL exists:", True)
+    print("DATABASE_URL prefix:", repr(DATABASE_URL[:20]))
+    print("DATABASE_URL length:", len(DATABASE_URL))
 
 if DATABASE_URL:
     DATABASES = {
@@ -52,18 +58,23 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # AWS S3 for media
 AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID", default=None)
+# AWS_ACCESS_KEY_ID = "5e16485115348c3ce046f36315f2d659"
 AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY", default=None)
+# AWS_SECRET_ACCESS_KEY="887bd4f2e5b91c311293067b662c79337008b6b305a47ba7f535bde3c70fe245"
 AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME", default="photo-gallery-media")
+# AWS_STORAGE_BUCKET_NAME = "photo-gallery-media"
 AWS_S3_REGION_NAME = config("AWS_S3_REGION_NAME")
 AWS_S3_SIGNATURE_VERSION = "s3v4"
 # AWS_STORAGE_BUCKET_NAME="photo-gallery-media"
 # Store uploaded images under the photos/ prefix
 AWS_LOCATION = ""
+# AWS_S3_ENDPOINT_URL="https://a884614f036c864873b57694a7ad5d35.r2.cloudflarestorage.com"
+AWS_S3_ENDPOINT_URL = config("AWS_S3_ENDPOINT_URL")
+
 # AWS_S3_ENDPOINT_URL = (
 #     f"https://a884614f036c864873b57694a7ad5d35.r2.cloudflarestorage.com"
 # )
 AWS_S3_REGION_NAME = "auto"
-AWS_S3_SIGNATURE_VERSION = "s3v4"
 AWS_DEFAULT_ACL = None
 AWS_QUERYSTRING_AUTH = False
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"

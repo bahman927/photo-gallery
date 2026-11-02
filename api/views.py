@@ -57,7 +57,8 @@ def test_s3_upload(request):
 
         if "Contents" in response:
             s3_files = [
-                f"https://{settings.AWS_STORAGE_BUCKET_NAME}.s3.{settings.AWS_S3_REGION_NAME}.amazonaws.com/{item['Key']}"
+                default_storage.url(item["Key"])
+                # f"https://{settings.AWS_STORAGE_BUCKET_NAME}.s3.{settings.AWS_S3_REGION_NAME}.amazonaws.com/{item['Key']}"
                 for item in response["Contents"]
             ]
         else:
@@ -113,7 +114,13 @@ def photo_list_create(request):
     #     return Response(serializer.data)
     if request.method == "GET":
         try:
+            print("GET STEP 1: Fetching photos")
+
             photos = Photo.objects.all().order_by("-uploaded_at")
+
+            print("GET STEP 2: Photo count:", photos.count())
+
+            print("GET STEP 3: Serializing photos")
 
             serializer = PhotoSerializer(
                 photos,
@@ -121,12 +128,18 @@ def photo_list_create(request):
                 context={"request": request}
             )
 
-            return Response(serializer.data)
+            data = serializer.data
+
+            print("GET STEP 4: Serialization successful")
+
+            return Response(data)
 
         except Exception as e:
             import traceback
+
             print("PHOTO GET ERROR:", repr(e))
             traceback.print_exc()
+
             raise
 
     elif request.method == "POST":
